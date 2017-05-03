@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #bottom {
+            background-color: red;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="bottom"></div>
+
+<script src="myAjax.js"></script>
+<script>
+
+    //get方法测试
+    myAjax({
+        requestType: 'get',
+        url: '/getFunc',
+        async: true,
+        cache: false,
+        success: function (data) {
+            alert(data);
+        },
+        error: function (statusText) {
+            alert("请求失败了，以下是具体信息：\n" + statusText);
+        }
+    });
+
+   //post方法测试
+    myAjax({
+        requestType: 'post',
+        url: '/postFunc',
+        async: true,
+        data: {name: "shuai", age: 10},
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (statusText) {
+            alert("请求失败了，以下是具体信息：\n" + statusText);
+        }
+    });
+</script>
+</body>
+</html>
