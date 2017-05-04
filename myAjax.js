@@ -63,48 +63,56 @@
         console.log("我的老哥，创建xmlHttp对象失败啦！您的浏览器不支持xmlHttpRequest对象");
      }
 
-     //定义状态监听函数
-     xmlHttp.onreadystatechange = function () {
-        switch (xmlHttp.readyState) {
-            case 1:
-                console.log("open() 方法已调用，但是 send() 方法未调用。请求还没有被发送。");
-                break;
-            case 2:
-                console.log("Send() 方法已调用，HTTP 请求已发送到 Web 服务器。未接收到响应。");
-                break;
-            case 3:
-                console.log("所有响应头部都已经接收到。响应体开始接收但未完成。");
-                break;
-            case 4:
-                if(xmlHttp.status == 200) {
-                    console.log("HTTP 响应已经完全接收。");
-                    success(xmlHttp.responseText);                              //调用回调函数
-                }
-                break;
-            default: error(xmlHttp.statusText);break;
-        }
-     };
+     try {
+         //定义状态监听函数
+         xmlHttp.onreadystatechange = function () {
+             switch (xmlHttp.readyState) {
+                 case 1:
+                     console.log("open() 方法已调用，但是 send() 方法未调用。请求还没有被发送。");
+                     break;
+                 case 2:
+                     console.log("Send() 方法已调用，HTTP 请求已发送到 Web 服务器。未接收到响应。");
+                     break;
+                 case 3:
+                     console.log("所有响应头部都已经接收到。响应体开始接收但未完成。");
+                     break;
+                 case 4:
+                     if (xmlHttp.status == 200) {
+                         console.log("HTTP 响应已经完全接收。");
+                         success(xmlHttp.responseText);                              //调用回调函数
+                     }
+                     break;
+                 default:
+                     error(xmlHttp.statusText);
+                     break;
+             }
+         };
 
-     if(type.toUpperCase() == 'GET') {                //如果是get请求
-         if(cache == false) {                         //如果get请求不使用缓存
-             xmlHttp.open('get', url + '?random = ' + Math.random(), async);
-             xmlHttp.send('null');
-         } else {                                     //如果get请求使用缓存
-             xmlHttp.open('get', url, async);
-             xmlHttp.send('null');
-         }
-     } else if(type.toUpperCase() == 'POST')          //如果是post请求
-     {
-         xmlHttp.open('post', url, async);
-         xmlHttp.setRequestHeader("Content-Type"
-                                  , "application/x-www-form-urlencoded");
+         if (type.toUpperCase() == 'GET') {                //如果是get请求
+             if (cache == false) {                         //如果get请求不使用缓存
+                 xmlHttp.open('get', url + '?random = ' + Math.random(), async);
+                 xmlHttp.send('null');
+             } else {                                     //如果get请求使用缓存
+                 xmlHttp.open('get', url, async);
+                 xmlHttp.send('null');
+             }
+         } else if (type.toUpperCase() == 'POST')          //如果是post请求
+         {
+             xmlHttp.open('post', url, async);
+             xmlHttp.setRequestHeader("Content-Type"
+                 , "application/x-www-form-urlencoded");
 
-         //把用户传来的数据转换成字符串
-         for(var i in obj.data) {
-           data.push(i + '=' + obj.data[i]);
+             //把用户传来的数据转换成字符串
+             for (var i in obj.data) {
+                 data.push(i + '=' + obj.data[i]);
+             }
+             data = data.join('&');
+             xmlHttp.send(data);
+         } else {
+             console.log("您的请求方法有误");
          }
-         data = data.join('&');
-         xmlHttp.send(data);
+     } catch (error) {
+         console.log("出错啦：" + error.message);
      }
 
 
