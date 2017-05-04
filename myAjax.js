@@ -109,7 +109,7 @@
              data = data.join('&');
              xmlHttp.send(data);
          } else {
-             console.log("您的请求方法有误");
+            throw  new Error('您的请求方法有误！');
          }
      } catch (error) {
          console.log("出错啦：" + error.message);
