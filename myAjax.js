@@ -88,12 +88,18 @@
              }
          };
 
+         //把用户传来的数据转换成字符串
+         for (var i in obj.data) {
+             data.push(i + '=' + obj.data[i]);
+         }
+         data = data.join('&');
+
          if (type.toUpperCase() == 'GET') {                //如果是get请求
              if (cache == false) {                         //如果get请求不使用缓存
-                 xmlHttp.open('get', url + '?random = ' + Math.random(), async);
+                 xmlHttp.open('get', url + '?' + data + '&random=' + Math.random(), async);
                  xmlHttp.send('null');
              } else {                                     //如果get请求使用缓存
-                 xmlHttp.open('get', url, async);
+                 xmlHttp.open('get', url + '?' + data, async);
                  xmlHttp.send('null');
              }
          } else if (type.toUpperCase() == 'POST')          //如果是post请求
@@ -101,12 +107,6 @@
              xmlHttp.open('post', url, async);
              xmlHttp.setRequestHeader("Content-Type"
                  , "application/x-www-form-urlencoded");
-
-             //把用户传来的数据转换成字符串
-             for (var i in obj.data) {
-                 data.push(i + '=' + obj.data[i]);
-             }
-             data = data.join('&');
              xmlHttp.send(data);
          } else {
             throw  new Error('您的请求方法有误！');
