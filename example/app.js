@@ -20,6 +20,7 @@
         //请求首页返回index.html
         app.get('/getFunc', function (req, res) {
                 console.log("get方法");
+                console.log(req.url);
                 res.send("我是服务器返回的数据");
 
         });
