@@ -25,6 +25,7 @@
         url: '/getFunc',
         async: true,
         cache: false,
+        data: { name: "lin", age: "20"},
         success: function (data) {
             alert(data);
         },
@@ -38,7 +39,7 @@
         requestType: 'post',
         url: '/postFunc',
         async: true,
-        data: {name: "shuai", age: 10},
+        data: {name:"shuai", age: 10},
         success: function (data) {
             console.log(data);
         },
